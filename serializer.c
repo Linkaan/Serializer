@@ -30,3 +30,32 @@
 
 #include "events.h"
 #include "serializer.h"
+
+unsigned char *
+serialize_int32_t (unsigned char *buffer, int32_t value)
+{
+	buffer[0] = value >> 24;
+	buffer[1] = value >> 16;
+	buffer[2] = value >> 8;
+	buffer[3] = value;
+	return buffer + 4;
+}
+
+unsigned char *
+serialize_int8_t (unsigned char *buffer, int8_t value)
+{
+	buffer[0] = value;
+	return buffer + 1;
+}
+
+unsigned char *
+serialize_fgevent (unsigned char *buffer, struct fgevent *value)
+{
+	buffer = serialize_int32_t (buffer, value->id);
+	buffer = serialize_int8_t (buffer, value->writeback);
+	buffer = serialize_int32_t (buffer, value->length);
+	for (int i = 0; i < value->length; i++) {
+		buffer = serialize_int32_t (buffer, value->payload[i]);
+	}
+	return buffer;
+}

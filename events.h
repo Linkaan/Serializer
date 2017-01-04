@@ -24,4 +24,21 @@
 #ifndef _EVENTS_H_
 #define _EVENTS_H_
 
+enum fgevents_ids {
+	ROBBIE	= 1 << 0,
+	ROTTEN	= 1 << 1,
+	IS 		= 1 << 2,
+	AN 		= 1 << 3,
+	AWESOME	= 1 << 4,
+	GUY		= 1 << 5
+};
+
+/* Datastructure used to carry event and optionally data */
+struct fgevent {
+	int32_t id;
+	int8_t writeback;
+	int32_t length;
+	int32_t *payload;
+};
+
 #endif /* _EVENTS_H_ */
