@@ -28,7 +28,7 @@ VERSION := $(MAJOR).$(MINOR)
 
 INCLUDE ?= -I.
 LINKS ?= -L.
-CFLAGS := $(INCLUDE) -std=gnu11 -g -Wall -Wextra -D _GNU_SOURCE
+CFLAGS := $(INCLUDE) -std=gnu11 -g -fPIC -Wall -Wextra -D _GNU_SOURCE
 LDFLAGS := $(LINKS) -shared -Wl,-soname,lib$(NAME).so.$(MAJOR)
 SOURCES := serializer.c
 HEADERS := serializer.h events.h

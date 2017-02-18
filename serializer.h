@@ -24,22 +24,21 @@
 #ifndef _SERIALIZER_H_
 #define _SERIALIZER_H_
 
+#include "events.h"
+
 /* Routines to serialize the used data structures */
-extern unsigned char *serialize_fgevent (unsigned char *buffer,
-                                         struct fgevent *value);
+extern unsigned char *serialize_fgevent (unsigned char *,
+                                         struct fgevent *);
 /* These functions assumes value is big-endian and htons and htonl can be used
    to convert between host and network byte order to ensure the data is
    parsed correctly */
-extern unsigned char *serialize_int32_t (unsigned char *buffer,
-                                         int32_t value);
-extern unsigned char *serialize_int8_t (unsigned char *buffer, int8_t value);
+extern unsigned char *serialize_int32_t (unsigned char *, int32_t);
+extern unsigned char *serialize_int8_t (unsigned char *, int8_t);
 
 /* Routines to deserialize the used data structures */
-extern unsigned char *deserialize_fgevent (unsigned char *buffer,
-                                           struct fgevent *value);
-extern unsigned char *deserialize_int32_t (unsigned char *buffer,
-                                           int32_t *value);
-extern unsigned char *deserialize_int8_t (unsigned char *buffer,
-                                          int8_t *value);
+extern unsigned char *deserialize_fgevent (unsigned char *,
+                                           struct fgevent *);
+extern unsigned char *deserialize_int32_t (unsigned char *, int32_t *);
+extern unsigned char *deserialize_int8_t (unsigned char *, int8_t *);
 
 #endif /* _SERIALIZER_H_ */
