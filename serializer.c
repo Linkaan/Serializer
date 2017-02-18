@@ -34,63 +34,63 @@
 unsigned char *
 serialize_int32_t (unsigned char *buffer, int32_t value)
 {
-	buffer[0] = (value >> 24) & 0xff;
-	buffer[1] = (value >> 16) & 0xff;
-	buffer[2] = (value >> 8) & 0xff;
-	buffer[3] = value & 0xff;
-	return buffer + 4;
+    buffer[0] = (value >> 24) & 0xff;
+    buffer[1] = (value >> 16) & 0xff;
+    buffer[2] = (value >> 8) & 0xff;
+    buffer[3] = value & 0xff;
+    return buffer + 4;
 }
 
 unsigned char *
 serialize_int8_t (unsigned char *buffer, int8_t value)
 {
-	buffer[0] = value;
-	return buffer + 1;
+    buffer[0] = value;
+    return buffer + 1;
 }
 
 unsigned char *
 serialize_fgevent (unsigned char *buffer, struct fgevent *value)
 {
-	buffer = serialize_int32_t (buffer, value->id);
-	buffer = serialize_int8_t (buffer, value->writeback);
-	buffer = serialize_int32_t (buffer, value->length);
-	for (int i = 0; i < value->length; i++)
-	  {
-		buffer = serialize_int32_t (buffer, value->payload[i]);
-	  }
-	return buffer;
+    buffer = serialize_int32_t (buffer, value->id);
+    buffer = serialize_int8_t (buffer, value->writeback);
+    buffer = serialize_int32_t (buffer, value->length);
+    for (int i = 0; i < value->length; i++)
+      {
+        buffer = serialize_int32_t (buffer, value->payload[i]);
+      }
+    return buffer;
 }
 
 unsigned char *
 deserialize_int32_t (unsigned char *buffer, int32_t *value)
 {
-	*value = buffer[0] << 24 | buffer[1] << 16 | buffer[2] << 8 | buffer[3];
-	return buffer + 4;
+    *value = buffer[0] << 24 | buffer[1] << 16 | buffer[2] << 8 | buffer[3];
+    return buffer + 4;
 }
 
 unsigned char *
 deserialize_int8_t (unsigned char *buffer, int8_t *value)
 {
-	*value = buffer[0];
-	return buffer + 1;
+    *value = buffer[0];
+    return buffer + 1;
 }
 
 unsigned char *
 deserialize_fgevent (unsigned char *buffer, struct fgevent *value)
 {
-	buffer = deserialize_int32_t (buffer, &value->id);
-	buffer = deserialize_int8_t (buffer, &value->writeback);
-	buffer = deserialize_int32_t (buffer, &value->length);
-	if (value->length)
-	  {
-		value->payload = malloc (value->length * sizeof (int32_t));
-		if (value->payload)
-	  	  {
-			for (int i = 0; i < value->length; i++)
-		  	  {
-				buffer = serialize_int32_t (buffer, &value->payload[i]);
-		  	  }
-	  	  }
-	  }
-	return buffer;
+    buffer = deserialize_int32_t (buffer, &value->id);
+    buffer = deserialize_int8_t (buffer, &value->writeback);
+    buffer = deserialize_int32_t (buffer, &value->length);
+    if (value->length)
+      {
+        value->payload = malloc (value->length * sizeof (int32_t));
+        if (value->payload)
+          {
+            for (int i = 0; i < value->length; i++)
+              {
+                buffer = serialize_int32_t (buffer, &value->payload[i]);
+              }
+          }
+      }
+    return buffer;
 }
