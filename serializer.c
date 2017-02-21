@@ -88,7 +88,7 @@ deserialize_fgevent (unsigned char *buffer, struct fgevent *value)
           {
             for (int i = 0; i < value->length; i++)
               {
-                buffer = serialize_int32_t (buffer, value->payload[i]);
+                buffer = deserialize_int32_t (buffer, &value->payload[i]);
               }
           }
       }
