@@ -24,13 +24,19 @@
 #ifndef _EVENTS_H_
 #define _EVENTS_H_
 
+#ifdef __AVR__
+#include <inttypes.h>
+#endif
+
+enum sensor_data_types {
+	TEMPERATURE,
+	PRESSURE,
+	HUMIDITY
+};
+
 enum fgevents_ids {
-	ROBBIE	= 1 << 0,
-	ROTTEN	= 1 << 1,
-	IS 		= 1 << 2,
-	AN 		= 1 << 3,
-	AWESOME	= 1 << 4,
-	GUY		= 1 << 5
+	SENSOR_DATA	= 1 << 0,
+	RETRIEVE_TEMP = 1 << 1
 };
 
 /* Datastructure used to carry event and optionally data */

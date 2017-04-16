@@ -24,7 +24,16 @@
 #ifndef _SERIALIZER_H_
 #define _SERIALIZER_H_
 
+#ifdef __AVR__
+#include <Arduino.h>
+//#include <sockutil.h>
+#endif
+
 #include "events.h"
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
 
 /* Routines to serialize the used data structures */
 extern unsigned char *serialize_fgevent (unsigned char *,
@@ -40,5 +49,9 @@ extern unsigned char *deserialize_fgevent (unsigned char *,
                                            struct fgevent *);
 extern unsigned char *deserialize_int32_t (unsigned char *, int32_t *);
 extern unsigned char *deserialize_int8_t (unsigned char *, int8_t *);
+
+#if defined(__cplusplus)
+}
+#endif
 
 #endif /* _SERIALIZER_H_ */

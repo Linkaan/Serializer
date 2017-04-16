@@ -23,10 +23,13 @@
  *  along with Fågelmataren.  If not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************
  */
-#include <stdio.h>
+#ifndef __AVR__
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdint.h>
+#else
+#include <inttypes.h>
+#endif
 
 #include "events.h"
 #include "serializer.h"
@@ -64,7 +67,10 @@ serialize_fgevent (unsigned char *buffer, struct fgevent *value)
 unsigned char *
 deserialize_int32_t (unsigned char *buffer, int32_t *value)
 {
-    *value = buffer[0] << 24 | buffer[1] << 16 | buffer[2] << 8 | buffer[3];
+    *value = (int32_t) buffer[0] << 24 |
+             (int32_t) buffer[1] << 16 |
+             (int32_t) buffer[2] << 8 |
+             (int32_t) buffer[3];
     return buffer + 4;
 }
 
