@@ -37,6 +37,7 @@
 unsigned char *
 serialize_int32_t (unsigned char *buffer, int32_t value)
 {
+    value = (int32_t) htonl ((uint32_t) value);
     buffer[0] = (value >> 24) & 0xff;
     buffer[1] = (value >> 16) & 0xff;
     buffer[2] = (value >> 8) & 0xff;
@@ -67,10 +68,11 @@ serialize_fgevent (unsigned char *buffer, struct fgevent *value)
 unsigned char *
 deserialize_int32_t (unsigned char *buffer, int32_t *value)
 {
-    *value = (int32_t) buffer[0] << 24 |
-             (int32_t) buffer[1] << 16 |
-             (int32_t) buffer[2] << 8 |
-             (int32_t) buffer[3];
+    uint32_t val = (uint32_t) buffer[0] << 24 |
+                   (uint32_t) buffer[1] << 16 |
+                   (uint32_t) buffer[2] << 8 |
+                   (uint32_t) buffer[3];
+    *value = (int32_t) ntohl (val);
     return buffer + 4;
 }
 

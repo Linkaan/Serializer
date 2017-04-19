@@ -36,7 +36,8 @@ enum sensor_data_types {
 
 enum fgevents_ids {
 	SENSOR_DATA	= 1 << 0,
-	RETRIEVE_TEMP = 1 << 1
+	RETRIEVE_TEMP = 1 << 1,
+	TEMP = 1 << 2
 };
 
 /* Datastructure used to carry event and optionally data */
