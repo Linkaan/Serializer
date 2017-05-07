@@ -56,6 +56,8 @@ unsigned char *
 serialize_fgevent (unsigned char *buffer, struct fgevent *value)
 {
     buffer = serialize_int32_t (buffer, value->id);
+    buffer = serialize_int8_t (buffer, value->sender);
+    buffer = serialize_int8_t (buffer, value->receiver);
     buffer = serialize_int8_t (buffer, value->writeback);
     buffer = serialize_int32_t (buffer, value->length);
     for (int i = 0; i < value->length; i++)
@@ -84,11 +86,20 @@ deserialize_int8_t (unsigned char *buffer, int8_t *value)
 }
 
 unsigned char *
+deserialize_fgevent_header (unsigned char *buffer, struct fgevent *header)
+{
+    buffer = deserialize_int32_t (buffer, &header->id);
+    buffer = deserialize_int8_t (buffer, &header->sender);
+    buffer = deserialize_int8_t (buffer, &header->receiver);
+    buffer = deserialize_int8_t (buffer, &header->writeback);
+    buffer = deserialize_int32_t (buffer, &header->length);
+    return buffer;
+}
+
+unsigned char *
 deserialize_fgevent (unsigned char *buffer, struct fgevent *value)
 {
-    buffer = deserialize_int32_t (buffer, &value->id);
-    buffer = deserialize_int8_t (buffer, &value->writeback);
-    buffer = deserialize_int32_t (buffer, &value->length);
+    buffer = deserialize_fgevent_header (buffer, value);
     if (value->length)
       {
         value->payload = malloc (value->length * sizeof (int32_t));

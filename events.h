@@ -28,6 +28,12 @@
 #include <inttypes.h>
 #endif
 
+enum user_ids {
+	FG_AVR = 1 << 0,
+	FG_MASTER = 1 << 1,
+	FG_SLAVE = 1 << 2
+};
+
 enum sensor_data_types {
 	TEMPERATURE,
 	PRESSURE,
@@ -35,15 +41,21 @@ enum sensor_data_types {
 };
 
 enum fgevents_ids {
-	SENSOR_DATA	= 1 << 0,
-	RETRIEVE_TEMP = 1 << 1,
-	TEMP = 1 << 2
+	FG_CONNECTED = 1 << 0,
+	FG_SENSOR_DATA	= 1 << 0,
+	FG_RETRIEVE_TEMP = 1 << 1,
+	FG_TEMP = 1 << 2,	
 };
 
 /* Datastructure used to carry event and optionally data */
 struct fgevent {
 	int32_t id;
+
+	int8_t sender;
+	int8_t receiver;
+
 	int8_t writeback;
+
 	int32_t length;
 	int32_t *payload;
 };
