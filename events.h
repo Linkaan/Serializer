@@ -28,6 +28,17 @@
 #include <inttypes.h>
 #endif
 
+#define APPLICATION_BASE_ID (1 << 20)
+#define ABI APPLICATION_BASE_ID
+
+/* 4 bytes long id
+ * 1 byte long sender id
+ * 1 byte long receiver id
+ * 1 byte long writeback boolean
+ * 4 bytes long length
+ */
+#define FGEVENT_HEADER_SIZE 11
+
 enum user_ids {
 	FG_AVR = 1 << 0,
 	FG_MASTER = 1 << 1,
@@ -41,10 +52,15 @@ enum sensor_data_types {
 };
 
 enum fgevents_ids {
-	FG_CONNECTED = 1 << 0,
-	FG_SENSOR_DATA	= 1 << 0,
-	FG_RETRIEVE_TEMP = 1 << 1,
-	FG_TEMP = 1 << 2,	
+	FG_CONFIRMED = 1 << 0,
+	FG_CONNECTED = 1 << 1,
+	FG_DISCONNECTED = 1 << 2,
+	FG_ALIVE = 1 << 3,
+	FG_ALIVE_CONFRIM = 1 << 4,
+	FG_USER_OFFLINE = 1 << 5,
+	FG_SENSOR_DATA	= ABI + 1,
+	FG_RETRIEVE_TEMP = ABI + 2,
+	FG_TEMP = ABI + 3,
 };
 
 /* Datastructure used to carry event and optionally data */

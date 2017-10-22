@@ -1,6 +1,7 @@
 # Fagelmatare serializer module
 
 ==================================
+
 [![Fagelmatare GPLv3 License](https://img.shields.io/badge/licens-GPLv3_License-blue.svg)](LICENSE)  
 This module is part of [Fagelmatare](https://github.com/Linkaan/Fagelmatare).  
 An embedded project created to learn Linux and C. Feeds and records birds using a PIR sensor.
@@ -22,4 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## Module description
 
-Bla bla bla
+Library used for binary translation for communication between master and slave via serialization. This library is a dependency of fgevents.

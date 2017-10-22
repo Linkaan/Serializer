@@ -27,6 +27,7 @@
 #ifdef __AVR__
 #include <Arduino.h>
 
+//__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 #define htonl(x) ( ((x)<<24 & 0xFF000000UL) | \
                    ((x)<< 8 & 0x00FF0000UL) | \
                    ((x)>> 8 & 0x0000FF00UL) | \
@@ -37,14 +38,6 @@
 #endif
 
 #include "events.h"
-
-/* 4 bytes long id
- * 1 byte long sender id
- * 1 byte long receiver id
- * 1 byte long writeback boolean
- * 4 bytes long length
- */
-#define FGEVENT_HEADER_SIZE 11
 
 #if defined(__cplusplus)
 extern "C" {
@@ -61,7 +54,7 @@ extern unsigned char *serialize_int8_t (unsigned char *, int8_t);
 
 /* Routines to deserialize the used data structures */
 extern unsigned char *deserialize_fgevent_header (unsigned char *buffer,
-												  struct fgevent *)
+												  struct fgevent *);
 extern unsigned char *deserialize_fgevent (unsigned char *,
                                            struct fgevent *);
 extern unsigned char *deserialize_int32_t (unsigned char *, int32_t *);
