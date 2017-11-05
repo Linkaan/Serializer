@@ -28,7 +28,7 @@
 #include <inttypes.h>
 #endif
 
-#define APPLICATION_BASE_ID (1 << 20)
+#define APPLICATION_BASE_ID (1 << 10)
 #define ABI APPLICATION_BASE_ID
 
 /* 4 bytes long id
@@ -42,13 +42,16 @@
 enum user_ids {
 	FG_AVR = 1 << 0,
 	FG_MASTER = 1 << 1,
-	FG_SLAVE = 1 << 2
+	FG_SLAVE = 1 << 2,
+	FG_DATALOGGER = 1 << 3
 };
 
 enum sensor_data_types {
-	TEMPERATURE,
-	PRESSURE,
-	HUMIDITY
+	CPUTEMP = 1,
+	OUTTEMP = 2,
+	INTEMP = 3,
+	PRESSURE = 4,
+	HUMIDITY = 5
 };
 
 enum fgevents_ids {
@@ -60,7 +63,7 @@ enum fgevents_ids {
 	FG_USER_OFFLINE = 1 << 5,
 	FG_SENSOR_DATA	= ABI + 1,
 	FG_RETRIEVE_TEMP = ABI + 2,
-	FG_TEMP = ABI + 3,
+	FG_TEMP_RESULT = ABI + 3,
 };
 
 /* Datastructure used to carry event and optionally data */
